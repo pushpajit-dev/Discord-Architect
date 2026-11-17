@@ -1,0 +1,50 @@
+{
+  "name": "@discord-architect/desktop",
+  "version": "1.0.0",
+  "author": "Discord Architect",
+  "description": "Discord Architect Desktop GUI & Server-as-Code Builder",
+  "main": "dist/main.cjs",
+  "scripts": {
+    "build:ts": "tsc --noEmit",
+    "prepare:assets": "node scripts/prepare-assets.mjs",
+    "dev": "npm run prepare:assets && electron .",
+    "pack": "npm run prepare:assets && electron-builder --win --dir",
+    "dist:exe": "npm run prepare:assets && electron-builder --win portable nsis"
+  },
+  "devDependencies": {
+    "@discord-architect/bot": "*",
+    "@discord-architect/shared": "*",
+    "@types/node": "^22.10.0",
+    "cors": "^2.8.5",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "electron": "35.7.5",
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.28.2",
+    "express": "^4.21.2",
+    "typescript": "^5.8.0"
+  },
+  "build": {
+    "appId": "com.discordarchitect.app",
+    "productName": "Discord Architect",
+    "electronVersion": "35.7.5",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "web-dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
